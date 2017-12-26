@@ -26,3 +26,8 @@ class Extended_InitPost_EventHandlers
 		};
 	};
 };
+
+class Extended_PreInit_EventHandlers
+{
+    advanced_fatigue_remover_init = "[] execVM '\x\fatigue\addons\core\functions\fnc_disableAdvancedFatigue_pre_init.sqf'";
+};
