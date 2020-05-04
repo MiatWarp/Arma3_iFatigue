@@ -6,6 +6,7 @@ set SOURCE_DRIVE=X
 set INPUT=x
 set SOURCES_DIR=sources
 set KEY=%PROJECT_DRIVE%:\tools\key\iEnemY.biprivatekey
+set PUBLIC_KEY=%PROJECT_DRIVE%:\tools\key\iEnemY.bikey
 
 rem Path like X:\tools\depbo\ - and there are must lay depbo.exe
 set PBO_TOOL=%PROJECT_DRIVE%:\tools\AddonBuilder
@@ -17,6 +18,7 @@ rd /S /Q C:\Users\%USERNAME%\AppData\Local\Temp\core
 rem Addon will placed in X:\pbo\ifatigue by default
 mkdir "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%"
 mkdir "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\addons"
+mkdir "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\keys"
 
 rem Cleaning old data
 del /F /S /Q "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\addons\ifatigue_core"
@@ -31,10 +33,12 @@ del /F /Q "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\addons\ifatigue_core.pbo"
 del /F /Q "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\addons\ifatigue_settings.pbo"
 del /F /Q "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\mod.cpp"
 del /F /Q "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\aipl.paa"
+del /F /Q "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\keys\*"
 
 rem Copying misc files
 copy "%SOURCE_DRIVE%:\%SOURCES_DIR%\%ADDON_NAME%\mod.cpp" "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\mod.cpp"
 copy "%SOURCE_DRIVE%:\%SOURCES_DIR%\%ADDON_NAME%\aipl.paa" "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\aipl.paa"
+copy "%PUBLIC_KEY%" "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\keys\"
 
 cls
 
