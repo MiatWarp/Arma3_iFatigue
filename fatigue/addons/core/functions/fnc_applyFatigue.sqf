@@ -6,6 +6,9 @@ some function by... me.
 if (!hasInterface) exitWith {};
 
 _unit = _this select 0;
+_unit = _unit select 0; // I dont know whats changed, but maybe now it will work
+//player globalChat "Fatigue init";
+
 if(isPlayer _unit) then
 {
     _unit setCustomAimCoef 0.01;
