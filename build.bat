@@ -1,26 +1,42 @@
-set PROJECT_DRIVE=W
+set ADDON_NAME=ifatigue
+
+set PROJECT_DRIVE=X
 set OUTPUT=pbo
-set SOURCE_DRIVE=W
+set SOURCE_DRIVE=X
 set INPUT=x
-set PBODLL=%PROJECT_DRIVE%:\Users\%USERNAME%\Appdata\Local\SIX Networks\Shared\tools\pbodll
-cd /d "%PBODLL%"
-mkdir "%PROJECT_DRIVE%:\%OUTPUT%\ifatigue"
-mkdir "%PROJECT_DRIVE%:\%OUTPUT%\ifatigue\addons"
+set SOURCES_DIR=sources
+set KEY=%PROJECT_DRIVE%:\tools\key\iEnemY.biprivatekey
 
-del /F /S /Q "%PROJECT_DRIVE%:\%OUTPUT%\ifatigue\addons\ifatigue_core"
-del /F /S /Q "%PROJECT_DRIVE%:\%OUTPUT%\ifatigue\addons\ifatigue_settings"
+rem Path like X:\tools\depbo\ - and there are must lay depbo.exe
+set PBO_TOOL=%PROJECT_DRIVE%:\tools\AddonBuilder
+set TOOL_EXECUTABLE=AddonBuilder.exe
 
-rd /S /Q "%PROJECT_DRIVE%:\%OUTPUT%\ifatigue\addons\ifatigue_core"
-rd /S /Q "%PROJECT_DRIVE%:\%OUTPUT%\ifatigue\addons\ifatigue_settings"
+rem Addon will placed in X:\pbo\ifatigue by default
+mkdir "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%"
+mkdir "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\addons"
 
-del /F /Q "%PROJECT_DRIVE%:\%OUTPUT%\ifatigue\addons\ifatigue_core.pbo"
-del /F /Q "%PROJECT_DRIVE%:\%OUTPUT%\ifatigue\addons\ifatigue_settings.pbo"
-del /F /Q "%PROJECT_DRIVE%:\%OUTPUT%\ifatigue\mod.cpp"
-del /F /Q "%PROJECT_DRIVE%:\%OUTPUT%\ifatigue\aipl.paa"
+rem Cleaning old data
+del /F /S /Q "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\addons\ifatigue_core"
+del /F /S /Q "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\addons\ifatigue_settings"
 
-copy "%SOURCE_DRIVE%:\%INPUT%\mod.cpp" "%PROJECT_DRIVE%:\%OUTPUT%\ifatigue\mod.cpp"
-copy "%SOURCE_DRIVE%:\%INPUT%\aipl.paa" "%PROJECT_DRIVE%:\%OUTPUT%\ifatigue\aipl.paa"
+rem Deleting directories
+rd /S /Q "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\addons\ifatigue_core"
+rd /S /Q "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\addons\ifatigue_settings"
+
+rem Clearing any other old files
+del /F /Q "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\addons\ifatigue_core.pbo"
+del /F /Q "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\addons\ifatigue_settings.pbo"
+del /F /Q "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\mod.cpp"
+del /F /Q "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\aipl.paa"
+
+rem Copying misc files
+copy "%SOURCE_DRIVE%:\%SOURCES_DIR%\%ADDON_NAME%\mod.cpp" "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\mod.cpp"
+copy "%SOURCE_DRIVE%:\%SOURCES_DIR%\%ADDON_NAME%\aipl.paa" "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\aipl.paa"
+
 cls
-MakePbo -A -P "x\fatigue\addons\core" "%SOURCE_DRIVE%:\%INPUT%\fatigue\addons\core" "%PROJECT_DRIVE%:\%OUTPUT%\ifatigue\addons\ifatigue_core.pbo"
-MakePbo -A -P "cba_settings_userconfig" "%SOURCE_DRIVE%:\%INPUT%\cba\addons\settings_userconfig" "%PROJECT_DRIVE%:\%OUTPUT%\ifatigue\addons\ifatigue_settings.pbo"
+
+cd /d "%PBO_TOOL%"
+rem %TOOL_EXECUTABLE% "%SOURCE_DRIVE%:\%SOURCES_DIR%\%ADDON_NAME%\fatigue\addons\core" "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\addons\%ADDON_NAME%_core.pbo" -prefix "x\fatigue\addons\core"
+%TOOL_EXECUTABLE% "%SOURCE_DRIVE%:\%SOURCES_DIR%\%ADDON_NAME%\fatigue\addons\core" "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\addons" -prefix="x\fatigue\addons\core" -sign="%KEY%"
+%TOOL_EXECUTABLE% "%SOURCE_DRIVE%:\%SOURCES_DIR%\%ADDON_NAME%\cba\addons\settings_userconfig" "%PROJECT_DRIVE%:\%OUTPUT%\%ADDON_NAME%\addons" -prefix="cba_settings_userconfig" -sign="%KEY%"
 cd /d "%PROJECT_DRIVE%:\%INPUT%"
