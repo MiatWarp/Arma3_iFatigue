@@ -30,5 +30,10 @@ class Extended_InitPost_EventHandlers
 class Extended_PreInit_EventHandlers
 {
     advanced_fatigue_remover_state_loaded_init = "[] execVM '\x\fatigue\addons\core\functions\fnc_state_loaded_pre_init.sqf'";
+
+    advanced_fatigue_settings_init = call compile preprocessFileLineNumbers "\x\fatigue\addons\core\functions\fnc_settings.sqf";
+
+    // "[] execVM '\x\fatigue\addons\core\functions\fnc_settings.sqf'";
+
    // advanced_fatigue_remover_init = "[] execVM '\x\fatigue\addons\core\functions\fnc_disableAdvancedFatigue_pre_init.sqf'";
 };
